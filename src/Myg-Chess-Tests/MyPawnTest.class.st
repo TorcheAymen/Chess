@@ -44,6 +44,41 @@ MyPawnTest >> testPawnCannotEatForward [
 ]
 
 { #category : 'tests' }
+MyPawnTest >> testPawnCannotGoForwardWhenNotEmpty [
+	| board pawn targets otherPawn |
+	
+	board := MyChessBoard empty. 	
+	pawn := MyPawn white.
+	otherPawn := MyPawn white. 
+	
+
+	board at: 'e2' put: pawn. 
+	board at: 'e3' put: otherPawn. 
+	
+	targets := pawn targetSquaresLegal: true.
+	
+	self assert: targets isEmpty 
+]
+
+{ #category : 'tests' }
+MyPawnTest >> testPawnMoveOnlyOneTimeWhenAlreadyMoved [ 
+	| board pawn targets nextTargets|
+	
+	board := MyChessBoard empty. 	
+	pawn := MyPawn white.
+
+	board at: 'e2' put: pawn. 
+	
+	targets := pawn targetSquaresLegal: true.
+	
+	pawn moveTo: targets last.
+	
+	nextTargets := pawn targetSquaresLegal: true.
+	self assert: nextTargets size equals: 1.
+	self assert: (nextTargets includes: (board at: 'e5')).
+]
+
+{ #category : 'tests' }
 MyPawnTest >> testPawnMoveTwoTimeAtInit [ 
 	| board pawn targets|
 	
