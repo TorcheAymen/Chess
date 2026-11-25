@@ -1,5 +1,5 @@
 Class {
-	#name : 'MyChessSquare',
+	#name : 'MyChessSquare', "Je vais m'attaquer à cette classe pour le kata refactor piece rendering"
 	#superclass : 'BlElement',
 	#instVars : [
 		'color',
