@@ -141,6 +141,23 @@ MyChessSquare >> highlightTarget [
 	self addChild: target
 ]
 
+{ #category : 'rendering' }
+MyChessSquare >> tableDispatchBuildWith: a
+    whitePieceOnBlackSquare: b
+    blackPieceOnWhiteSquare: c
+    blackPieceOnBlackSquare: d [
+    ^ Dictionary newFrom: {
+        (true -> (Dictionary newFrom: {
+            (false -> a).
+            (true -> b)
+        })).
+        (false -> (Dictionary newFrom: {
+            (false -> c).
+            (true -> d)
+        }))
+    }
+]
+
 { #category : 'initialization' }
 MyChessSquare >> initialize [
 
@@ -200,85 +217,67 @@ MyChessSquare >> printOn: aStream [
 
 { #category : 'rendering' }
 MyChessSquare >> renderBishop: aPiece [
-
-	^ aPiece isWhite
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'B' ]
-				  ifTrue: [ 'b' ] ]
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'V' ]
-				  ifTrue: [ 'v' ] ]
+	| table |
+	table := self
+		         tableDispatchBuildWith: 'B'
+	         whitePieceOnBlackSquare: 'b'
+	         blackPieceOnWhiteSquare: 'V'
+	         blackPieceOnBlackSquare: 'v'.
+	^ (table at: aPiece isWhite) at: color isBlack
 ]
-
 { #category : 'rendering' }
 MyChessSquare >> renderKing: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'L' ]
-				  ifTrue: [ 'l' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'K' ]
-				  ifTrue: [ 'k' ] ]
+	| table |
+	table := self
+		         tableDispatchBuildWith: 'K'
+	         whitePieceOnBlackSquare: 'k'
+	         blackPieceOnWhiteSquare: 'L'
+	         blackPieceOnBlackSquare: 'l'.
+	^ (table at: aPiece isWhite) at: color isBlack
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderKnight: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [ color isBlack
-				  ifFalse: [ 'M' ]
-				  ifTrue: [ 'm' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'N' ]
-				  ifTrue: [ 'n' ] ]
+	| table |
+	table := self
+		         tableDispatchBuildWith: 'N'
+	         whitePieceOnBlackSquare: 'n'
+	         blackPieceOnWhiteSquare: 'M'
+	         blackPieceOnBlackSquare: 'm'.
+	^ (table at: aPiece isWhite) at: color isBlack
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderPawn: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'O' ]
-				  ifTrue: [ 'o' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'P' ]
-				  ifTrue: [ 'p' ] ]
+	| table |
+	table := self
+		         tableDispatchBuildWith: 'P'
+		         whitePieceOnBlackSquare: 'p'
+		         blackPieceOnWhiteSquare: 'O'
+		         blackPieceOnBlackSquare: 'o'.
+	^ (table at: aPiece isWhite) at: color isBlack
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderQueen: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'W' ]
-				  ifTrue: [ 'w' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'Q' ]
-				  ifTrue: [ 'q' ] ]
+	| table |
+	table := self
+		         tableDispatchBuildWith: 'Q'
+	         whitePieceOnBlackSquare: 'q'
+	         blackPieceOnWhiteSquare: 'W'
+	         blackPieceOnBlackSquare: 'w'.
+	^ (table at: aPiece isWhite) at: color isBlack
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderRook: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'T' ]
-				  ifTrue: [ 't' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'R' ]
-				  ifTrue: [ 'r' ] ]
+	| table |
+	table := self
+		         tableDispatchBuildWith: 'R'
+	         whitePieceOnBlackSquare: 'r'
+	         blackPieceOnWhiteSquare: 'T'
+	         blackPieceOnBlackSquare: 't'.
+	^ (table at: aPiece isWhite) at: color isBlack
 ]
 
 { #category : 'accessing' }

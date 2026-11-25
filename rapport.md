@@ -41,3 +41,37 @@ MyChessSquare >> renderRook: aPiece [
 ## Plan d'action 
 
 Je propose de faire du TDD, d'abord rédiger les test, puis les méthodes puis de refactoriser la classe MyChessSquare et enfin tester. 
+
+
+### TDD 
+
+J'ai rédigé la première série de test; il y'en avait beaucoup (6 pièces) donc j'ai demandé à l'IA de rédiger les autres qui sont pareils. 
+
+MyChessSquareTest >> testRenderBishop [
+	self assert: (MyBishop white renderPieceOn: MyChessSquare white) equals: 'B'.
+	self assert: (MyBishop white renderPieceOn: MyChessSquare black) equals: 'b'.
+	self assert: (MyBishop black renderPieceOn: MyChessSquare white) equals: 'V'.
+	self assert: (MyBishop black renderPieceOn: MyChessSquare black) equals: 'v'
+]
+
+
+### Execution 
+
+je commence par faire la première méthode intermédiaire : celle qui initialise la table de dispatch 
+
+{ #category : 'rendering' }
+MyChessSquare >> tableDispatchBuildWith: a
+    whitePieceOnBlackSquare: b
+    blackPieceOnWhiteSquare: c
+    blackPieceOnBlackSquare: d [
+    ^ Dictionary newFrom: {
+        (true -> (Dictionary newFrom: {
+            (false -> a).
+            (true -> b)
+        })).
+        (false -> (Dictionary newFrom: {
+            (false -> c).
+            (true -> d)
+        }))
+    }
+]
